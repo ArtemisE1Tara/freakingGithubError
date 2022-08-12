@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Streamer Tools Overlay</title>
+        <meta property="og:site_name" content="ComputerElite">
+        <meta property="og:title" content="Streamer Tools Viewer Quest Overlay Overview" />
+        <meta property="og:description" content="Overlay for Streamer Tools Viewer for Beat Saber on Quest" />
+        <meta property="og:url" content="https://computerelite.github.io/tools/Streamer_Tools_Quest_Overlay/" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link href="../../css/standard.css" type="text/css" rel="stylesheet">
+        <link rel="icon" href="assets/CE_64px.png" type="image/x-icon">
+        <style>
+            body {
+                background-color: #00000000;
+                background-image: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="padding-top: 10px; width: 100%; display: flex;">
+            <div style="flex: 1; padding: 10px;" class="bigBox">
+                <div style="font-size: 24px; text-align: center;">Overlays for the Streamer Tools Beat Saber mod on Oculus Quest</div>
+                <a href="https://github.com/EnderdracheLP/streamer-tools/releases/latest">Download the mod</a>
+                <br/>
+                IP: <input style="width: 10%; margin-top: 20px;" type="text" id="ip">
+                <br/>
+                Update Rate in ms <input style="width: 10%; margin-top: 20px;" type="text" id="rate" value="100">
+                <br/>
+                Decimal places for Percentage: <input style="width: 10%; margin-top: 20px;" type="text" id="decimals" value="2">
+                <br/>
+                Custom Text: <input style="width: 10%; margin-top: 20px;" type="text" id="custom" value="">
+                <br/>
+                <br/>
+                Don't show energy bar <input type="checkbox" id="dontenergy">
+                <br/>
+                <br/>
+                Don't show mp code if shown in game <input type="checkbox" id="dontmpcode">
+                <br/>
+                <br/>
+                Always show mp code if shown in game <input type="checkbox" id="alwaysmpcode">
+                <br/>
+
+                <div class="warning" style="margin-top: 10px; font-size: 1.5em;"><a href="https://github.com/ComputerElite/streamer-tools-client">Download the client to which the overlay connects to as they won't work in your browser only</a></div>
+                
+
+                <div style="font-size: 16px; line-height: 2; margin-top: 10px">
+                    <a id="overlay1" href="#">First Overlay</a>
+                    <br/>
+                    <a id="overlay2" href="#">Recreation of Overlay by reselim</a>
+                    <br/>
+                    <a id="overlay3" href="#">Recreation of Overlay which bandoot uses</a>
+                    <br/>
+                    <a id="overlayBuilder" href="#">Overlay builder</a>
+                </div>
+                
+                
+            </div>
+        </div>
+        <script src="../../js/standard.js"></script>
+        <script src="../../js/jszip.js"></script>
+        <script>
+            document.getElementById("overlay1").onclick = function() {
+                window.open("Overlay1.html" + GetArgs(), "_self")
+            }
+
+            document.getElementById("overlay2").onclick = function() {
+                window.open("Overlay2.html" + GetArgs(), "_self")
+            }
+
+            document.getElementById("overlay3").onclick = function() {
+                window.open("Overlay3.html" + GetArgs(), "_self")
+            }
+
+            document.getElementById("overlayBuilder").onclick = function() {
+                window.open("Overlay_builder/builder.html" + GetArgs(), "_self")
+            }
+
+            function GetArgs() {
+                return "?ip=" + document.getElementById("ip").value + "&updaterate=" + document.getElementById("rate").value + "&decimals=" + document.getElementById("decimals").value + (document.getElementById("dontenergy").checked ? "&dontshowenergy" : "") + (document.getElementById("dontmpcode").checked ? "&dontshowmpcode" : "") + (document.getElementById("alwaysmpcode").checked ? "&alwaysshowmpcode" : "") + (document.getElementById("custom").value != "" ? "&customtext=" + document.getElementById("custom").value : "")
+            }
+
+            document.getElementById("downloadIt").onclick = function() {
+                var zip = new JSZip();
+                zip.file("index.html", CleanUp(MakeTextGetRequest("index.html")));
+                zip.file("standart.css", MakeTextGetRequest("../../css/standart.css"));
+                zip.file("standart.js", MakeTextGetRequest("../../js/standart.js"));
+                zip.file("Overlay1.html", CleanUp(MakeTextGetRequest("Overlay1.html")));
+                zip.file("Overlay2.html", CleanUp(MakeTextGetRequest("Overlay2.html")));
+                zip.file("Overlay3.html", CleanUp(MakeTextGetRequest("Overlay3.html")));
+                zip.file("pulling.js", MakeTextGetRequest("pulling.js"));
+
+                zip.generateAsync({type:"blob"})
+                .then(function(content) {
+                    saveAs(content, "Level_Stats_Quest_Overlay.zip");
+                });
+            }
+
+            function CleanUp(input) {
+                return input
+                .replace("../../css/", "")
+                .replace("../../js/", "")
+                .replace(`<link rel="icon" href="../../assets/CE_64px.png" type="image/x-icon">`, "")
+                .replace(`<div class="warning" style="margin-top: 10px;"><a class="warningHeader" href="#" id="downloadIt">Download all overlays here since they probably don't work in your browser</a></div>`, "")
+            }
+
+            function saveAs(data, filename)
+            {
+                console.log('saving ' + filename + '...')
+            
+                var blob = new Blob([data], {type: 'octet/stream'});
+                var url = window.URL.createObjectURL(blob);
+            
+                if(navigator && navigator.msSaveBlob)
+                {
+                    console.log("using msSaveBlob...");
+                    navigator.msSaveBlob(blob, filename);
+                }
+                else
+                {
+                    var a = document.createElement('a');
+                    a.style = "display: none";
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    try
+                    {
+                        a.click();
+                    }
+                    catch(e)
+                    {
+                        console.error(e);
+                        console.log('failed to save file');
+                    }
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                }
+            }
+        </script>
+    </body>
+</html>

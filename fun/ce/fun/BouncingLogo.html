@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html {
+                background-color: #000000;
+                height: 100%;
+                width: 100%;
+                overflow-y: hidden;
+                overflow-x: hidden;
+            }
+
+            img {
+                position: absolute;
+            }
+
+            body {
+                height: 100%;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <img src="../assets/CE_512px.png" id="logo">
+        
+        <script src="../js/standard.js"></script>
+        <script>
+            var logo = document.getElementById("logo")
+            var url = new URL(window.location.href)
+            var speed = url.searchParams.get("speed")
+            if(!speed) speed = 200
+            speed = speed / 100.0
+            var width = url.searchParams.get("width")
+            var height = url.searchParams.get("height")
+            var src = url.searchParams.get("src")
+            if(!src) src = "../assets/CE_512px.png"
+            if(src.includes("watch?v=")) {
+                document.body.removeChild(logo)
+                var player = document.createElement("div")
+                player.id = "logo"
+                document.body.appendChild(player)
+                logo = player
+                var tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                var firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            } else {
+                logo.src = src
+            }
+
+            var videoPlayer
+            var imgWidth = 0
+            var imgHeight = 0
+            function onYouTubeIframeAPIReady() {
+                videoPlayer = new YT.Player('logo', {
+                playerVars: { 
+                    'autoplay': 1,
+                    'controls': 0,
+                    'mute': 1
+                },
+                videoId: src.substring(32, src.length),
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+                });
+                logo = document.getElementById("logo")
+                logo.style.position = "absolute"
+            }
+
+            function onPlayerReady(event) {
+                if(height != "" && height != null) logo.height = height
+                if(width != "" && width != null) logo.width = width
+                imgWidth = parseInt(logo.width)
+                imgHeight = parseInt(logo.height)
+            }
+
+            var done = false;
+            var setup = false;
+            function onPlayerStateChange(event) {
+                videoPlayer.playVideo()
+            }
+
+            setTimeout(() => {
+                setInterval(() => {
+                    document.getElementById("logo").dispatchEvent(new KeyboardEvent('keydown',{'key':'a'}));
+                    videoPlayer.unMute();
+                }, 1000);
+            }, 500)
+            
+
+            var noHue = url.searchParams.get("nohue") == null ? false : true
+
+            var currentHue = 0
+
+            var direction = {
+                h: 1,
+                v: 1
+            }
+
+            logo.onload = () => {
+                if(height != "" && height != null) logo.height = height
+                if(width != "" && width != null)logo.width = width
+                imgWidth = parseInt(logo.width)
+                imgHeight = parseInt(logo.height)
+            }
+
+            setInterval(() => {
+                var left = GetNumberFromPx(logo.style.left)
+                var top = GetNumberFromPx(logo.style.top)
+                var collided = false
+                if(left < 0) {direction.h = 1; collided = true}
+                else if(left + imgWidth >= document.body.clientWidth) {direction.h = -1; collided = true}
+                if(top < 0) {direction.v = 1; collided = true}
+                else if(top + imgHeight > document.body.clientHeight) {direction.v = -1; collided = true}
+                if(collided && !noHue) {
+                    currentHue += 100
+                    currentHue = currentHue % 360
+                    logo.style.filter = "hue-rotate(" + currentHue + "deg)"
+                }
+                logo.style.left = (left + speed * direction.h) + "px"
+                logo.style.top = (top + speed * direction.v) + "px"
+                videoPlayer.playVideo()
+            }, 10)
+
+            function GetNumberFromPx(input) {
+                return parseFloat(input.replace("px", "")) || 0
+            }
+        </script>
+    </body>
+</html>

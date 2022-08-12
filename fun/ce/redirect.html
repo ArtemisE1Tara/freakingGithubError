@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Redirecting...</title>
+        <link href="css/standard.css" type="text/css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <style>
+            body {
+                height: 100%;
+                padding: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="font-size: 38px; text-align: center; width: 100%; height: 100%;" id="funContainer">Redirecting...</div>
+        <div id="player"></div>
+        <script src="js/standard.js"></script>
+        <script>
+            // URL e. g.
+            // https://computerElite.github.io/redirect.html?target=https://www.youtube.com/watch?v=LDU_Txk06tM&start=100&timeout=10000&aftertimeout=https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+            const urls = {
+                "memes": [
+                    {start: 59, id: "LDU_Txk06tM", timeout: 6000},
+                    {start: 0, id: "fC7oUOUEEi4", timeout: 6000},
+                    {start: 10, id: "0xzN6FM5x_E", timeout: 2000},
+                    {start: 13, id: "A_BlNA7bBxo", timeout: 7000},
+                    {start: 548, id: "L2W8PJuPcc4", timeout: 14000},
+                    {start: 0, id: "BeG5FqTpl9U", timeout: 10000},
+                    {start: 0, id: "J-fXTRHApRc", timeout: 6800},
+                    {start: 15, id: "KmtzQCSh6xk", timeout: 7500},
+                    {start: 242, id: "3hQvydvjaiM", timeout: 14000},
+                    {start: 0, id: "dQw4w9WgXcQ", timeout: 10000},
+                    {start: 0, id: "H0Yirlo6WSU", timeout: 27000},
+                    {start: 253, id: "s5e5tg-ZvHQ", timeout: 7000},
+                    {start: 0, id: "Fwn7noOOeac", timeout: 14000},
+                    {start:44, id: "B2UwFhik5pM", timeout: 29000},
+                    {start: 106, id: "Fwn7noOOeac", timeout: 50000},
+                    {start: 0, id: "-HcKrd3K8_A", timeout: 36000},
+                    {start: 46, id: "gDyatA1kRK0", timeout: 6000},
+                    {start: 454, id: "zCXrspb-qLg", timeout: 30000},
+                    // not including cause of epilepsy which some people have {start: 8, id: "ltSQ-czeDEE", timeout: 10000}
+                ]
+            }
+            var url = new URL(window.location.href)
+            
+            var target = url.searchParams.get("target")
+            if(target == null || target == "") target = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            var start = url.searchParams.get("start")
+            var timeout = url.searchParams.get("timeout")
+            var aftertimeout = url.searchParams.get("aftertimeout")
+            var length = url.searchParams.get("length")
+            if(url.searchParams.get("random") != null) {
+                console.log("getting random redirect")
+                var category = url.searchParams.get("category")
+                if(category == null || category == "") category = "memes" 
+                var index = url.searchParams.get("index")
+                if(index == null || index == "") index = (new Date()).getTime() % urls[category].length
+                var tmptarget = url.searchParams.get("target")
+                console.log("param: " + category + "[" + index + "]")
+                var params = urls[category][index]
+                timeout = params.timeout;
+                aftertimeout = tmptarget
+                start = params.start
+                target = "https://www.youtube.com/watch?v=" + params.id
+            }
+            if(length == null) length = 1000
+            if(start == null) start = 0
+            if(aftertimeout == null) aftertimeout = target
+            if(target.startsWith("https://www.youtube.com/watch?v=")) {
+                console.log("playing " + target + " starting at " + start)
+            } else if(target == "self") {
+                document.location.href = window.location.href
+            }
+            else {
+                //console.log(target)
+                document.location.href = target
+            }
+            
+            var tag = document.createElement('script');
+
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            // 3. This function creates an <iframe> (and YouTube player)
+            //    after the API code downloads.
+            var player;
+            function onYouTubeIframeAPIReady() {
+
+                if(target.startsWith("https://www.youtube.com/watch?v=")) {
+                    document.getElementById("funContainer").style.display = "none";
+                    player = new YT.Player('player', {
+                    height: document.documentElement.scrollHeight + 'px',
+                    width: '100%',
+                    playerVars: { 
+                        'autoplay': 1,
+                        'controls': 0
+                    },
+                    videoId: target.substring(32, target.length),
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                    });
+                }
+                
+            }
+
+            // 4. The API will call this function when the video player is ready.
+            function onPlayerReady(event) {
+                console.log("player ready")
+                player.seekTo(start, true)
+                setInterval(() => {
+                    document.body.click()
+                    player.playVideo();
+                }, 50)
+            }
+
+            
+
+            
+
+            // 5. The API calls this function when the player's state changes.
+            //    The function indicates that when playing a video (state=1),
+            //    the player should play for six seconds and then stop.
+            var done = false;
+            var setup = false;
+            function onPlayerStateChange(event) {
+                console.log("new state: " + event.data)
+                if (event.data == YT.PlayerState.PAUSED) {
+                    player.playVideo()
+                } else if (event.data == YT.PlayerState.PLAYING && !setup) {
+                    setup = true;
+                    if(timeout != null) {
+                        console.log("opening " + aftertimeout + " in " + timeout + " ms")
+                        setTimeout(() => {
+                            if(aftertimeout == "self") {
+                                document.location.href = window.location.href
+                            } else {
+                                window.location.href = aftertimeout
+                            }
+                        }, timeout)
+                    }
+                }
+            }
+            function stopVideo() {
+                player.stopVideo();
+            }
+        </script>
+    </body>
+</html>

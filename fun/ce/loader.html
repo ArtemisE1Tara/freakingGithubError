@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>test</title>
+    </head>
+    <body>
+        Yeah so it load Something
+        <script>
+            var url = new URL(window.location.href);
+            var uri = url.searchParams.get("uri");
+            var html = MakeTextGetRequest(uri)
+            var baseDir = uri
+            if(baseDir.endsWith("/")) baseDir = baseDir.substring(0, baseDir.length - 1)
+
+            baseDir = baseDir.substring(0, baseDir.lastIndexOf("/"))
+            //Check if base dir exceeds website domain
+            const websiteRegex = /^https?\:\/\/([^/]+(\/)?)$/g
+            if(uri.match(websiteRegex)) {
+                baseDir = uri.endsWith("/") ? uri : uri + "/"
+            }
+            // Get every match for a relative uri and replace it with an absolute one
+            const reg = /("|`|')(((\.\.\/)+)|\/)?[a-zA-Z0-9\-_\.\/\{\}\$]+("|`|')/g
+            var links = []
+            while ((match = reg.exec(html)) !== null) {
+                match[0] = match[0].substring(1, match[0].length - 1)
+                if(!match[0].includes(".") && !match[0].endsWith("/") && !match[0].startsWith("//") || match[0].startsWith("///") || match[0].startsWith("$")) continue;
+                console.log(`Found ${match[0]} start=${match.index} end=${reg.lastIndex}.`);
+                var replacement = GetAbsoluteLink(baseDir, match[0])
+                links.push({
+                    absolute: replacement,
+                    relative: match[0],
+                    start: match.index,
+                    end: reg.lastIndex
+                })
+                console.log("replacing with " + replacement)
+            }
+
+            //Start replacement
+            var length = 0
+            links.forEach(link => {
+                html = html.substring(0, link.start + 1 + length) + html.substring(link.end - 1 + length, html.length)
+                html = InsertString(link.absolute, link.start + 1 + length, html)
+                length += link.absolute.length - link.relative.length
+            })
+
+            
+
+            const scriptReg = /<script( src=".+?")?((\/>)|(>.*?<\/script>))/gs
+            const headStart = html.indexOf("<head>") + 6
+            var scripts = []
+            while ((match = scriptReg.exec(html)) !== null) {
+                scripts.push(match[0]);
+                console.log("moved script " + match[0] + " into head")
+            }
+            scripts.forEach(s => {
+                html = html.replace(s, "")
+            })
+
+            
+
+            document.documentElement.innerHTML = html
+            const srcRegex = /src=".+?"/gs
+            var i = 0
+            scripts.forEach(e => {
+                console.log(i)
+                i++
+                var script = document.createElement("script")
+                if(e.substring(e.indexOf("<"), e.indexOf(">")).match(srcRegex))
+                {
+                    var found = srcRegex.exec(e.substring(0, e.indexOf(">")))[0];
+                    script.src = found.substring(5, found.length - 1)
+                } else script.appendChild(document.createTextNode(e.substring(e.indexOf(">") + 1, e.lastIndexOf("<") - 1)))
+                document.head.appendChild(script)
+            })
+
+            function GetAbsoluteLink(baseUri, relativeUri) {
+                var absolute = baseUri;
+                if(relativeUri.startsWith("../")) {
+                    var tmp = absolute.split("/")
+                    tmp.pop();
+                    absolute = tmp.join("/")
+                    absolute = GetAbsoluteLink(absolute, relativeUri.substring(3, relativeUri.length))
+                } else if(relativeUri.startsWith("//")) {
+                    absolute = baseUri.substring(0, baseUri.indexOf("/")) + relativeUri
+                } else {
+                    absolute += "/" + relativeUri
+                }
+                return absolute
+            }
+
+            function InsertString(toInsert, position, text) {
+                return [text.slice(0, position), toInsert, text.slice(position)].join('')
+            }
+
+            function MakeTextGetRequest(url) {
+                var request = new XMLHttpRequest();
+                request.open('GET', url, false);
+                request.send(null);
+                if (request.status == 200) {
+                    return request.responseText;
+                } else {
+                    return "Something went wrong: " + request.status;
+                }
+            }
+        </script>
+    </body>
+</html>

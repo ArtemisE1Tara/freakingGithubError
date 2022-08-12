@@ -1,0 +1,32 @@
+html {
+    background-image: url("../images/background.jpg"); 
+    background-attachment: fixed;
+    background-blend-mode: lighten;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-size: 1rem;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 10px; 
+}
+
+.grid-item {
+    border-radius: 5px;
+    text-align: center;
+    padding: 15px;
+    font-family: verdana;  
+    margin: 10px;
+}
+
+@font-face {
+    font-family: "Valorant Font";
+    src: url("../Valorant\ Font.ttf") format('truetype');
+}
+
+h1 {
+    font-family: Valorant Font;
+    color: white;
+}

@@ -1,0 +1,74 @@
+html {
+    background-image: url("../assets/background.jpg");
+    height: auto;
+    min-height: 100%;
+    background-attachment:fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #111111DD;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto, auto, auto;
+    padding: 10px; 
+}
+
+.grid-item {
+    background-color: rgba(75, 75, 75, 0.747);
+    border-radius: 5px;
+    text-align: center;
+    padding: 15px;
+    font-family: times new roman;  
+    color: white;
+    margin: 10px;
+}
+
+.bouncy{
+    animation:bouncy 5s infinite linear;
+    position:relative;
+}
+@keyframes bouncy {
+    0%{top:0em}
+    40%{top:0em}
+    43%{top:-0.9em}
+    46%{top:0em}
+    48%{top:-0.4em}
+    50%{top:0em}
+    100%{top:0em;}
+}
+
+button {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: aquamarine;
+    margin: 5px;
+}
+
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+  
+a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+  
+a:hover {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+  
+a:active {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+#display_image {
+    
+}

@@ -1,0 +1,3 @@
+# ignore ALL .ini files
+*.ini
+*.txt

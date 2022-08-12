@@ -1,0 +1,35 @@
+<div style="margin-left: 5%;" class="onlyPc">
+    <div style="font-size: 20px; font-weight: bold; margin-bottom: 10px;">Notes for Beat saber modding</div>
+    <div>
+        Modding on Beat Saber version before 1.12.1 will most likely not work. If you plan to go to another version be sure to follow <a href="https://bsmg.wiki/quest-modding.html">the BSMG Quest modding guide</a>
+    </div>
+    <div>
+        <div class="attention" style="width: fit-content; margin: 0px; margin-top: 10px;">
+            <div class="attentionHeader">
+                Downgrading guide
+            </div>
+            <a href="https://www.youtube.com/watch?v=PU75xnFAyHY&t=321s">Click here for a video guide</a><br/>
+            1. Log in on <a href="https://oculus.com">oculus.com</a><br/>
+            2. Download the desired version from below<br/>
+            3. Uninstall Beat Saber via Sidequest<br/>
+            4. Install the APK you downloaded in step 2<br/>
+            You've finished
+        </div>
+    </div>
+</div>
+<div id="latestVer" class="inline" style="margin-left: 5%;"></div>
+<script>
+    fetch("https://raw.githubusercontent.com/BMBF/resources/master/com.beatgames.beatsaber/core-mods.json").then(res => {
+        res.json().then(json => {
+            arr = []
+            for (const [key, value] of Object.entries(json)) {
+                arr.push(key)
+            }
+            latest = arr.map( a => a.replace(/\d+/g, n => +n+100000 ) ).sort().map( a => a.replace(/\d+/g, n => +n-100000 ) ).reverse()[0]
+            console.log(latest)
+            if(url.searchParams.get("downloadlatestmodable") || url.searchParams.get("downloadlatestmoddable"))
+                window.location.href = `?id=${showedid}&downloadversion=${latest}`
+            document.getElementById("latestVer").innerHTML = `<div class="customButton" style="font-size: 1.5em; margin-top: 5px;" onclick="window.location.href = '?id=${showedid}&downloadversion=${latest}'">Download latest moddable version (${latest})</div>`
+        })
+    })
+</script>

@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>Streamer Tools Viewer Quest Overlay</title>
+        <meta property="og:site_name" content="ComputerElite">
+        <meta property="og:title" content="Streamer Tools Viewer Quest Overlay" />
+        <meta property="og:description" content="An overlay for Streamer Tools Viewer for Beat Saber on Quest. Original Overlay" />
+        <meta property="og:url" content="https://computerelite.github.io/tools/Streamer_Tools_Quest_Overlay/Overlay1.html" />
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link href="../../css/standard.css" type="text/css" rel="stylesheet">
+        <link rel="icon" href="../../assets/CE_64px.png" type="image/x-icon">
+        <style>
+            html {
+                background-color: #00000000;
+                background-image: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="position: absolute; left: 10px; top: 10px; background-color: #222222; border-radius: 5px; padding: 10px;">
+            <div style="font-size: 170%;" class="songName">Song name</div>
+            <div style="display: flex;">
+                <div style="flex: 1;">
+                    <img style="width: 100px; height: 100px;" src="default.png" class="cover">
+                </div>
+                <div style="flex: 1; padding-left: 10px;">
+                    <div style="font-size: 110%;">Artist: <div style="font-size: 120%;" class="songAuthor">Artist</div></div>
+                    <div style="font-size: 110%; margin-top: 10px; margin-bottom: 10px;">Mapper: <div style="font-size: 120%;" class="mapper">Mapper</div></div>
+                    <div style="font-size: 110%;" class="diff">diff</div>
+                    <div style="display: inline; font-size: 80%;">Key: <div style="display: inline;" class="key">key</div></div>
+                </div>
+            </div>
+            <div style="font-size: 5px; position: absolute; bottom: 0px; right: 0px; background-color: #222222; padding: 2px; border-radius: 2px; " class="pinkCuteContainer">Pink Cute</div>
+            <div style="font-size: 5px; position: absolute; bottom: 0px; right: 50px; background-color: #222222; padding: 2px; border-radius: 2px; " class="eraCuteContainer">Era Cute</div>
+            <div class="mpCodeContainer">Mp lobby: <div style="font-size: 110%; display: inline;" class="mpCode">*****</div></div>
+            <div>Combo: <div style="font-size: 110%; display: inline;" class="combo">Combo</div></div>
+            <div>Score: <div style="font-size: 110%; display: inline;" class="score">Score</div></div>
+            <div>Rank: <div style="font-size: 110%; display: inline;" class="rank">Rank</div> (<div style="font-size: 100%; display: inline;" class="percentage"></div>)</div>
+            <div style="font-size: 110%; margin-top: 5px;" class="customText"></div>
+        </div>
+        <div class="energybarContainer" style="width: 30%; height: 2%; position: absolute; background-color: #222222; border-radius: 3px; margin: auto; bottom: 10px; left: 0px; right: 0px; padding: 1px;z-index: -2;">
+            <div style="font-size: 5px; position: absolute; top: 0px; right: 0px; background-color: #222222; padding: 2px; border-radius: 2px; z-index: -1;" class="williamGayContainer">William Gay</div>
+            <div class="energybar" style="height: 100%; width: 100%; background: #00FFFF; border-radius: 2px;">
+            </div>
+        </div>
+        <script>
+            function UpdateEnergy(energy) {
+                Array.prototype.forEach.call(document.getElementsByClassName("energybar"), energybar => {
+                    energybar.style.width = `${energy * 100}%`
+                })
+            }
+        </script>
+        
+        <script src="pulling.js"></script>
+    </body>
+</html>

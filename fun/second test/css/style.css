@@ -1,0 +1,75 @@
+html {
+    background-image: url("../assets/raindrops.jpg");
+    background-attachment: fixed;
+    background-blend-mode: lighten;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-size: 1rem;
+}
+
+button {
+    color: black;
+    background-color: rgb(255, 212, 212);
+    cursor: pointer;
+}
+
+.button1 {
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 15px;
+}
+
+.navBar {
+    color: gray;
+    background-color: rgba(240, 158, 133, 0.753);
+    border-radius: 10px;
+}
+
+.navBarItem {
+    color: white;
+    font-family: verdana;
+    font-size: 18px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
+}
+
+.grid-item {
+    display: inline-grid;
+    background-color: rgba(120, 120, 230, 0.692);
+    border-radius: 5px;
+    text-align: center;
+    padding: 15px;
+    font-family: verdana;  
+    margin: 5px;
+    margin-top: 150px;
+    color: white;
+}
+
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+  
+a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+  
+a:hover {
+    color: aquamarine;
+    background-color: transparent;
+    text-decoration: none;
+}
+  
+a:active {
+    color: aquamarine;
+    background-color: transparent;
+    text-decoration: none;
+}

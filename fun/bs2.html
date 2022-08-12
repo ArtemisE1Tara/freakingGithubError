@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<link rel="icon" href="images/favicon.png">
+<html lang="en-US">
+<link rel="stylesheet" href="css/style.css">
+
+<body>
+<head>
+    <title>Beat Saber 2</title>
+    <meta charset="utf-8">
+    <meta property="og:title" content="Beat Saber 2">
+    <meta property="og:description" content="A new era of VR, we proudly present Beat Saber 2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<header>
+    <button class="button button1">
+        <a href="index.html" target="_self">Home</a>
+    </button>
+
+    <button class="button button1">
+        <a href="resources.html" target="_self">Resources</a>
+    </button>
+
+    <button class="button button1">
+        <a href="matrix.html" target="_self">Matrix</a>
+    </button>
+
+    <button class="button button1">
+        <a href="bs2.html" target="_self">Beat Saber 2</a>
+    </button>
+
+    <button class="button button1">
+        <a href="questmods.html" target="_self">Quest Mods</a>
+    </button>
+
+    <button class="button button1">
+        <a href="index2.html" target="_self">beatsaber.com (modified)</a>
+    </button>
+
+    <div style="text-align: center">
+        <div class="panelitem" id="MyClockDisplay" onload="showTime()" style="color:aquamarine ;font-size: 20px"></div>
+    </div>
+</header>
+<hr>
+
+<p style="text-align: center"><span>Credit: CE</span></p>
+
+
+<div class="content">
+    <div class="navBarFont">
+        <p><span style="font-size: 30px">WELCOME TO THE</span></p>
+    </div>
+    <img class="logo" src="./BS2/assets/logo.png">
+    <div class="navBarFont">
+        <p><span style="font-size: 30px">(UN)OFFICIAL WEBSITE</span></p>
+    </div>
+    <div class="box">
+        <h1>MORE INFO</h1>
+        As you might know, Beat Games no longer owns the
+        rights to the Beat Saber VR game or Beat Saber related products. As
+        Meta now COMPLETELY owns the Beat Saber IP.
+        <h2>WHAT DOES THIS MEAN?</h2>
+        It means you get more of the game that you love! We understand that changes
+        can be scary, but Meta has agreed to listen to every word spoken by
+        the Beat Saber community. Below is a list of the spectacular new changes that are
+        coming to Beat Saber!
+        <ul>
+            <li>The game is now exclusive to Meta products.</li>
+            <li>A whole new game!</li>
+            <li>An even bigger community!</li>
+            <li>Even more updates!</li>
+            <li>New graphics</li>
+            <li>Completely new features which can be seen listed below!</li>
+        </ul>
+    </div>
+    <div class="box">
+        <h1>NEW FEATURES</h1>
+        <h2>Easy Anti Cheat</h2>
+        Implementing EAC should've been something that had been done years ago,
+        and we sincerely apologize. As other popular VR games have been
+        implementing EAC into their games, it about time we do as well. Goodbye
+        cheaters!
+
+        <h2>Beat Sage</h2>
+        We know you Meta Quest users have been wanting custom songs for quite a
+        long while... so here it is! With this new feature, make any map you want, with
+        the click of a button! This feature will completely replace normal custom songs,
+        as they are now obsolete.
+        <h2>What is Beat Sage?</h2>
+        Beat Sage is an AI custom song generator capable of taking an audio
+        file or YouTube link and converting it into a fast-paced, energetic map. Quest
+        users will be able to sync their songs between their headset and the mobile app via 
+        a new page in the devices tab. Simply paste the link to a music video or upload an mp3 
+        to the app and it will automatically generate the map and sync it to Beat Saber the next
+        time you open the game.
+        <div class="subBoxContainer">
+            <div class="subBox">
+                <img class="subBoxImg" src="./BS2/assets/beatsage.png">
+            </div>
+        </div>
+
+        <h2>Beat-Pass and BeatCoin</h2>
+        It's hard to keep a game up without monetization. We have added these
+        optionally purchasable items into the game. We hope you enjoy the new
+        content!
+        <div class="subBoxContainer">
+            <div class="subBox">
+                <img class="subBoxImg" src="./BS2/assets/beatpass.jpg">
+                Beat-Pass! (Only accessible in
+                multiplayer.) 
+            </div>
+            <div class="subBox">
+                <img class="subBoxImg max50" src="./BS2/assets/beatcoins.png">
+                Beatcoin [ˈbɪ:tˌkɔɪ̯n]. Use this item to buy
+                other items or songs in the
+                shop! Pricing starts at $10.00
+                per coin.
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const bgs = [
+        "assets/bg1.jpg",
+        "assets/bg2.jpg",
+        "assets/bg3.jpg"
+    ]
+    var currentBG = 0
+    const totalBGs = bgs.length
+
+    BGSetUp()
+
+    
+    function BGSetUp() {
+        for(let i = 0; i < bgs.length; i++) {
+            document.body.innerHTML += `<div class="bg bgHidden" style="background-image: url('${bgs[i]}')" id='bg${i}'></div>`
+        }
+        NextBG()
+        setInterval(NextBG, 10000)
+    }
+
+    function NextBG() {
+        var previousBG = document.getElementById("bg" + currentBG)
+        currentBG++
+        currentBG %= totalBGs
+        var nextBG = document.getElementById("bg" + currentBG)
+        previousBG.classList.add("fadeOut")
+        previousBG.classList.remove("fadeIn")
+        nextBG.classList.remove("bgHidden")
+        nextBG.classList.add("fadeIn")
+        setTimeout(() => {
+            previousBG.classList.add("bgHidden")
+            previousBG.classList.remove("fadeOut")
+            nextBG.classList.remove("bgHidden")
+        }, 2000);
+    }
+</script>
+
+
+<script type="text/javascript" src="./js/clock.js"></script>
+<script type="text/javascript" src="./js/imageloader.js"></script>
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9fdfec54b57a4dcca5d4abdca4e97600"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<link rel="icon" href="images/favicon.png">
+<html lang="en-US">
+<link rel="stylesheet" href="css/style.css">
+
+<body>
+<head>
+    <title>Beat Saber Mod Versions</title>
+    <meta charset="utf-8">
+    <meta property="og:title" content="Beat Saber Mod Versions" />
+    <meta property="og:description" content="Display mods for various game versions" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href="ce/css/standard.css" type="text/css" rel="stylesheet">
+</head>
+
+<header>
+    <button class="button button1">
+        <a href="index.html" target="_self">Home</a>
+    </button>
+
+    <button class="button button1">
+        <a href="resources.html" target="_self">Resources</a>
+    </button>
+
+    <button class="button button1">
+        <a href="matrix.html" target="_self">Matrix</a>
+    </button>
+
+    <button class="button button1">
+        <a href="bs2.html" target="_self">Beat Saber 2</a>
+    </button>
+
+    <button class="button button1">
+        <a href="questmods.html" target="_self">Quest Mods</a>
+    </button>
+
+    <button class="button button1">
+        <a href="index2.html" target="_self">beatsaber.com (modified)</a>
+    </button>
+
+    <div style="text-align: center">
+        <div class="panelitem" id="MyClockDisplay" onload="showTime()" style="color:aquamarine ;font-size: 20px"></div>
+    </div>
+</header>
+<hr>
+
+<p style="text-align: center"><span>Credit: ComputerElite</span></p>
+<style>
+td {
+    padding: 10px;
+}
+
+.os {
+    font-size: 16px;
+    color: #EEE;
+}
+
+.item {
+    flex: 1;
+    width: 24%;
+    word-wrap: break-word;
+    padding: 3px;
+    display: inline;
+}
+</style>
+<body style="font-size: 14px;">
+<div style="display: flex; flex-direction: column; width: 100%; height: 100%;">
+    <div style="flex: 1; flex-grow: 0; text-align: center; width: 99%;">
+            <div style="padding: 10px; width: 100%;">
+                <div style="font-size: 24px;"><span>Beat Saber Mod Versions</span></div>
+                <br>
+                <div class="headerDescription" style="width: 50%; margin: auto; font-size: 15px"><span>Pulled from <a href="https://raw.githubusercontent.com/ComputerElite/BM/main/mods.json" target="_blank">BMBF Manager</a></div></span>
+                <br/>
+                <a style="font-size: 22px; color: #EEEEEE; text-align: center; display: flex; justify-content: center; width: 100%;">
+                    <span>Game Version:</span>
+                    <select id="gameversion">
+                        <option value=""></option>
+                    </select>
+                </a>
+                <br>
+                <input type="text" id="search" placeholder="Search mods">
+                <h2>Core Mods</h2>
+                <div id="coremods">
+
+                </div>
+                <h2>Mods</h2>
+                <div id="mods">
+
+                </div>
+                <br/>
+            </div>
+            <div style="padding: 5px;">
+                Page by ComputerElite
+            </div>
+        </div>
+</div>
+
+<script src="./ce/js/standard.js"></script>
+<script>
+    var org = {}
+    var coreOrg = {}
+    var gameVersions = {}
+    const mods = document.getElementById("mods")
+    const coremods = document.getElementById("coremods")
+    const gameversion = document.getElementById("gameversion")
+    const search = document.getElementById("search")
+    const params = new URLSearchParams(window.location.search)
+    var displayMethod = params.get("displaymethod")
+    if(!displayMethod) displayMethod = 1
+
+    search.onkeyup = e => {
+        Display(gameversion.value)
+    }
+    PullMods()
+    
+
+    function PullMods() {
+        gameVersions = {}
+        fetch("https://raw.githubusercontent.com/ComputerElite/BM/main/mods.json").then(res => {
+            res.json().then(json => {
+                org = json
+                SortByGameVersion()
+            })
+        })
+        fetch("https://raw.githubusercontent.com/BMBF/resources/master/com.beatgames.beatsaber/core-mods.json").then(res => {
+            res.json().then(json => {
+                coreOrg = json
+                SortByGameVersionCore()
+            })
+        })
+    }
+
+    function SortByGameVersionCore() {
+        for (const [key, value] of Object.entries(coreOrg)) {
+            value.mods.forEach(mod => {
+                if(gameVersions[key] == undefined) gameVersions[key] = {mods: [], addedmods: [], coremods: []}
+                gameVersions[key].coremods.push({
+                    name: mod.id,
+                    ModID: mod.id,
+                    version: mod.version,
+                    download: mod.downloadLink
+                })
+            })
+        }
+        AddGameVersions()
+        Display(gameversion.value)
+    }
+
+    function SortByGameVersion() {
+        org.mods.forEach(mod => {
+            var addedGameVersions = []
+            mod.downloads.forEach(download => {
+                download.gameversion.forEach(version => {
+                    if(mod && mod.ModID == "CrashMod") {
+                        if(!gameVersions["CrashMod"]) gameVersions["CrashMod"] = {mods: [], coremods: []}
+                        var m = {
+                            name: mod.name,
+                            details: mod.details,
+                            creator: mod.creator,
+                            ModID: mod.ModID,
+                            version: download.modversion,
+                            download: download.download
+                        };
+                        gameVersions["CrashMod"].mods.push(m)
+                        gameVersions["CrashMod"].coremods.push(m) 
+                    }
+                    if(!addedGameVersions.includes(version) && (gameVersions[version] == undefined || gameVersions[version].addedmods == undefined || !gameVersions[version].addedmods.includes(mod.id))) {
+                        addedGameVersions.push(version)
+                        if(gameVersions[version] == undefined) gameVersions[version] = {mods: [], addedmods: [], coremods: []}
+                        gameVersions[version].addedmods.push(mod.ModID)
+                        gameVersions[version].mods.push({
+                            name: mod.name,
+                            details: mod.details,
+                            creator: mod.creator,
+                            ModID: mod.ModID,
+                            version: download.modversion,
+                            download: download.download
+                        })
+                    }
+                })
+            })
+        });
+        gameVersions["CrashMod"].mods.forEach(c => {
+            gameVersions["CrashMod"].mods.forEach(c => {
+                gameVersions["CrashMod"].mods.push(c)
+            })
+        })
+        AddGameVersions()
+        Display(gameversion.value)
+    }
+
+    function AddGameVersions() {
+        var gameversions = []
+        gameversion.innerHTML = ""
+        for (const [key, value] of Object.entries(gameVersions)) {
+            if(key != "CrashMod") gameversions.push(key)
+            gameVersions[key].mods.sort(function(a, b) {
+                if(a.name.toLowerCase() < b.name.toLowerCase()) return -1
+                if(b.name.toLowerCase() < a.name.toLowerCase()) return 1
+                return 0
+            })
+            gameVersions[key].coremods.sort(function(a, b) {
+                if(a.name < b.name) return -1
+                if(b.name < a.name) return 1
+                return 0
+            })
+        }
+        gameversions.sort()
+        gameversions.reverse()
+        gameversions.push("CrashMod")
+        gameversions.forEach(key => {
+            gameversion.innerHTML += `<option value="${key}">${key}</option>`
+        })
+        if(params.get("version")) {
+            gameversion.value = params.get("version")
+        }
+    }
+
+    gameversion.onchange = () => {
+        Display(gameversion.value)
+    }
+
+    function GetModButtons(downloadLink) {
+        var githubLink = ""
+        if(downloadLink.includes("github.com")) {
+            githubLink = downloadLink.substring(0, downloadLink.indexOf("releases"))
+        }
+        return `<input onclick="window.open('${downloadLink}', '_blank')" type="button" value="Download" style="border-radius: 5px; cursor: pointer; background-color: black; color: white; border-color: aquamarine; padding: 10px; font-weight: bold;">
+                        ${githubLink ? `<input onclick="window.open('${githubLink}issues', '_blank')" type="button" value="Report Bug" style="border-radius: 5px; cursor: pointer; background-color: black; border-color: aquamarine; color: white; padding: 10px; font-weight: bold;">
+                        <input onclick="window.open('${githubLink}', '_blank')" type="button" value="Open GitHub Repository" style="border-radius: 5px; cursor: pointer; background-color: black; border-color: aquamarine; color: white; padding: 10px; font-weight: bold;">` : ""}`
+    }
+
+    function DisplayCards(gameversion) {
+        gameversion.innerHTML = "";
+        
+        var m =``;
+        console.log("refreshing for " + gameversion)
+        gameVersions[gameversion].mods.forEach(mod => {
+            if(mod.name.toLowerCase().replace(/ /g, '').includes(search.value.replace(/ /g, '').toLowerCase()) || mod.creator.join(", ").toLowerCase().replace(/ /g, '').includes(search.value.toLowerCase().replace(/ /g, ''))) {
+                var githubLink = ""
+                if(mod.download.includes("github.com")) {
+                    githubLink = mod.download.substring(0, mod.download.indexOf("releases"))
+                }
+                m +=    `<div style="border-radius: 5px; background-color: #222233BB; padding: 10px; text-align: left;">
+                        <h3 style="margin-bottom: 0px; margin-top: 0;">${mod.name}</h3>
+                        <div style="margin-top: 0; margin-left: 20px;">by ${mod.creator.join(", ")}. Version ${mod.version}</div>
+                        <div style="margin-top: 10px; font-size: 1.2em;">${mod.details.replace(/\n/g, "<br>")}</div>
+                        ${GetModButtons(mod.download)}
+                    </div>`
+            }
+        })
+        mods.innerHTML = ` <div class="grid">
+                    ${m}
+                </div>`
+        m =``;
+        console.log("refreshing for " + gameversion)
+        gameVersions[gameversion].coremods.forEach(mod => {
+            if(mod.name.toLowerCase().replace(/ /g, '').includes(search.value.replace(/ /g, '').toLowerCase())) {
+                m +=    `<div style="border-radius: 5px; background-color: #222233BB; padding: 10px; text-align: left;">
+                        <h3 style="margin-bottom: 0px; margin-top: 0;">${mod.name}</h3>
+                        <div style="margin-top: 0; margin-left: 20px;">Version ${mod.version}</div>
+                        ${GetModButtons(mod.download)}
+                        </div>`
+            }
+        })
+        coremods.innerHTML =` <div class="grid">
+                    ${m}
+                </div>`
+    }
+
+    function FuckYouKrak(gameversion) {
+        gameVersions[gameversion].mods = []
+        gameVersions[gameversion].coremods = []
+        const fuckYouKrak =  {
+                            name: "Fuck you KRAK",
+                            details:"Fuck you KRAK",
+                            creator: ["Fuck", "you", "KRAK"],
+                            ModID: "Fuck you KRAK",
+                            version: "Fuck you KRAK",
+                            download: "/redirect?target=self&random",
+                        }
+        for(let i = 0; i < 40; i++) {
+            gameVersions[gameversion].mods.push(fuckYouKrak)
+            gameVersions[gameversion].coremods.push(fuckYouKrak)
+        }
+    }
+
+    function Display(gameversion) {
+        if(displayMethod == 1) {
+            DisplayCards(gameversion)
+            return;
+        } else {
+            FuckYouKrak(gameversion)
+        }
+        gameversion.innerHTML = "";
+        
+        var m =``;
+        console.log("refreshing for " + gameversion)
+        gameVersions[gameversion].mods.forEach(mod => {
+            if(mod.name.toLowerCase().replace(/ /g, '').includes(search.value.replace(/ /g, '').toLowerCase()) || mod.creator.join(", ").toLowerCase().replace(/ /g, '').includes(search.value.toLowerCase().replace(/ /g, ''))) {
+                m +=    `<tr class="hrColorTr pointer" onclick='window.open("${mod.download}", "_blank")'>
+                        <td style="vertical-align:top;">${mod.creator.join(", ")}</td>
+                        <td><div style="font-size: 120%; font-weight: bold;">${mod.name}</div><div>${mod.details.replace(/\n/g, "<br>")}</div></td>
+                        <td style="vertical-align:top;">${mod.version}</td>
+                    </tr>`
+            }
+        })
+        mods.innerHTML = `<table style="color: #EEEEEE; width: 100%; text-align: left; word-wrap: break-word;">
+                    <tr>
+                        <th style="width: 20%;">Creator(s)</th>
+                        <th style="width: 60%;">Name</th>
+                        <th style="width: 19%;">Version</th>
+                    </tr>
+                    ${m}
+                </table>`
+                var m =``;
+        console.log("refreshing for " + gameversion)
+        gameVersions[gameversion].coremods.forEach(mod => {
+            if(mod.name.toLowerCase().replace(/ /g, '').includes(search.value.replace(/ /g, '').toLowerCase())) {
+                m +=    `<tr class="hrColorTr pointer" onclick='window.open("${mod.download}", "_blank")'>
+                            <td><div style="font-size: 120%; font-weight: bold;">${mod.name}</div></td>
+                            <td>${mod.version}</td>
+                        </tr>`
+            }
+        })
+        coremods.innerHTML =`<table style="color: #EEEEEE; width: 100%; text-align: left; word-wrap: break-word;">
+                    <tr>
+                        <th style="width: 60%;">Name</th>
+                        <th style="width: 19%;">Version</th>
+                    </tr>
+                    ${m}
+                </table>` 
+    }
+</script>
+
+
+<script type="text/javascript" src="./js/clock.js"></script>
+<script type="text/javascript" src="./js/imageloader.js"></script>
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9fdfec54b57a4dcca5d4abdca4e97600"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

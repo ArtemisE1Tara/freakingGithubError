@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes">
+
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Ler digital studio">
+
+<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+<link rel="manifest" href="images/favicon/site.html">
+<link rel="shortcut icon" href="images/favicon/favicon.ico">
+<meta name="msapplication-TileColor" content="#061927">
+<meta name="msapplication-config" content="images/favicon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<title>Beat Saber - VR rhythm game</title>
+<meta property="og:title" content="Beat Saber - VR rhythm game">
+
+<meta name="description" content="Beat Saber is a VR rhythm game where you slash the beats of adrenaline-pumping music as they fly towards you, surrounded by a futuristic world.">
+<meta property="og:description" content="Beat Saber is a VR rhythm game where you slash the beats of adrenaline-pumping music as they fly towards you, surrounded by a futuristic world.">
+
+<meta property="og:image" content="images/fb_preview.jpg">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/main1bce1bce.css?v=6" rel="stylesheet">
+<link rel="stylesheet" href="../use.typekit.net/uji2rdg.css"></head>
+<body class="careers">
+
+<style>
+	button {
+	border-style:solid;
+	border-width: medium;
+	border-color: aquamarine;
+	border-radius: 5px;
+	/*border-bottom-left-radius: 15px;
+	border-top-right-radius: 15px;*/
+	background-color: black;
+	color: white;
+	padding: 5px;
+	cursor: pointer;
+	font-family: verdana;
+	font-size: 15px;
+}
+
+.button1 {
+	background-color: rgb(0, 0, 0);
+	color: white;
+	border-color:aquamarine;
+	margin: 3px;
+}
+
+.textpanel {
+    padding: 10px; 
+}
+
+.panelitem {
+    background-color: rgba(118, 119, 117, 0.808);
+    border-radius: 5px;
+    padding: 10px;
+    font-family: verdana;
+}
+
+.center {
+    text-align: center;
+    position: relative;
+    top: 40px;
+    color: white;
+    font-family: verdana;
+}
+
+a:link {
+	color: white;
+	background-color: transparent;
+	text-decoration: none;
+}
+	
+a:visited {
+	color: white;
+	background-color: transparent;
+	text-decoration: none;
+}
+	
+a:hover {
+	color: aquamarine;
+	background-color: transparent;
+	text-decoration: none;
+}
+	
+a:active {
+	color: aquamarine;
+	background-color: transparent;
+	text-decoration: none;
+}
+
+.header1 {
+	background-color: rgba(118, 119, 117, 0.808);
+	border-radius: 5px;
+	display: flex;
+	padding: 10px;
+	position:relative;
+	top:1;
+	left:1;   
+}
+</style>
+
+<div class="header1">
+	<button class="button button1">
+		<a href="index.html" target="_self">Home</a>
+	</button>
+
+	<button class="button button1">
+		<a href="resources.html" target="_self">Resources</a>
+	</button>
+
+	<button class="button button1">
+		<a href="matrix.html" target="_self">Matrix</a>
+	</button>
+
+	<button class="button button1">
+		<a href="bs2.html" target="_self">Beat Saber 2</a>
+	</button>
+
+	<button class="button button1">
+		<a href="questmods.html" target="_self">Quest Mods</a>
+	</button>
+
+	<button class="button button1">
+		<a href="index2.html" target="_self">beatsaber.com (modified)</a>
+	</button>
+
+	<div style="text-align: center">
+		<div class="panelitem" id="MyClockDisplay" onload="showTime()" style="color:aquamarine ;font-size: 20px">
+		</div>
+	</div>
+</div>
+<hr>
+
+	<header class="header">
+		<div class="container">
+	<div class="row">
+		<div class="col-md-16">
+			<div class="header__wrapper">
+				<a href="index2.html" rel="noopener" target="_self" class="logo"><img src="images/svg/Beatgames_logo.svg" alt="Beat Games"></a>
+
+				<div class="menu-toggle d-md-none"></div>
+
+				<div class="mobile-menu">
+					
+
+					<nav class="nav">
+						<ul class="menu">
+							
+							<li class="menu__item"><a class="menu__link" href="faq.html">FAQ</a></li>
+							
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>		<link href="css/extra.min.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Barlow+Condensed:400,600" rel="stylesheet">
+	</header>
+
+	<main>
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-14 offset-1">
+						<h1 class="section-title">FAQ</h1><br />
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section-job">
+				<div class="container">
+					<div class="row">
+						<div class="col-14 offset-1 col-md-16 offset-md-0">
+                            
+                            <br><h1>GENERAL</h1>
+                            
+							<button class="faq-accordion">I am having issues with tracking.</button>
+							<div class="faq-answer">
+								<p>
+									Unfortunately, tracking isn't something we can influence in any way, the accuracy of the tracking depends on the platform and the device and is not connected with the game itself..<br /><br /> 
+
+									<i>Note: Some PS VR players are experiencing problems with tracking while playing Beat Saber.</i><br /><br />
+									The most common situations are:
+									<ul>
+										<li>There is too much direct light in the room</li>
+										<li>The camera is wrongly positioned</li>
+										<li>The colour of the environment in the game projects to your room and matches the current colour of your Move controller.</li>
+                                        <li>For example: when the environment in the game is red and your Move controller has also red colour, the PlayStation Camera is not able to read the controller, thus tracking is not accurate.</li>
+                                        <li>If you are experiencing this problem try to turn off your TV while playing or lower the brightness of your TV.</li>
+                                        <li>If the issue still continues, it must be a hardware problem and you should contact PlayStation support.</li>
+                                        <li>In the future, we may add an option to turn on a black & white environment on your TV to prevent this issue with tracking.</li>
+									</ul>
+								</p>
+							</div>
+							<button class="faq-accordion">I am sure I properly cut the cube but the game says it was a “bad cut” or a “miss”.</button>
+							<div class="faq-answer">
+								<p>
+									We have seen this complaint several times and tried to replicate the situation in order to test it. In all cases, we found out that the player truly missed the note.<br>
+                                    There is a chance the player was confused by the trail which follows after the cube, thus it seemed like the cube was cut.<br>
+                                    If the game says 'bad cut' or 'miss' it is every time the correct information.
+
+								</p>
+                            </div>
+                            <button class="faq-accordion">Does Beat Saber Multiplayer support cross-play?</button>
+							<div class="faq-answer">
+								<p>
+									Beat Saber Multiplayer Cross-play is possible between Oculus and Steam platform. 
+								</p>
+							</div>
+                            <button class="faq-accordion">Which songs in the game have Content ID turned on?</button>
+							<div class="faq-answer">
+								<p>
+									Song FitBeat, all songs in the OST 1, OST 2, OST 3, OST 4, OST 5 and songs from Rocket  League x Monstercat Music Pack are Content ID free. We plan the same for any of Beat Saber's upcoming OSTs. Unfortunately, we are not able to secure Content ID turned off for paid music packs which are coming from 3rd party labels. Since we are supporting the artists and their music, we respect their decision to keep Content ID turned on for their music.
+								</p>
+							</div>
+                            <button class="faq-accordion">My controllers don't vibrate/don't have haptic feedback.</button>
+							<div class="faq-answer">
+								<p>
+									Replace all batteries in your controllers with new ones and connect your headset to a different USB port.
+								</p>
+							</div>
+                            <button class="faq-accordion">I bought a music pack, but after the update, it looks like it was not purchased. What should I do?</button>
+							<div class="faq-answer">
+								<p>
+									Just restart your headset.
+								</p>
+							</div>
+                            <button class="faq-accordion">Is cross-buy available?</button>
+							<div class="faq-answer">
+								<p>
+								Cross-buy across platforms is not possible, but all players who purchased Beat Saber music packs through the Oculus Store will have all their music packs available as a cross-buy.
+								</p>
+							</div>
+                            <button class="faq-accordion">Can you add more music genres to the game?</button>
+							<div class="faq-answer">
+								<p>
+									Yes, we are definitely planning to keep adding diverse music genres into Beat Saber so our game stays exciting for everyone and you have a chance to explore something new or play your favorite songs. Stay tuned! 
+								</p>
+							</div>
+                            <button class="faq-accordion">Do you have a physical version of the game?</button>
+							<div class="faq-answer">
+								<p>
+									No, we don't have a physical version of the game and we don't plan it.
+								</p>
+							</div>
+                            
+                            <br><h1>OCULUS</h1>
+                            
+							<button class="faq-accordion">How to reinstall Beat Saber without losing the data on Quest.</button>
+							<div class="faq-answer">
+								<p>
+									1. Plug the Quest into your PC<br>
+                                    2. Allow access to Data<br>
+                                    3. Go to \Quest\Internal shared storage\Android\data\com.beatgames.beatsaber\files\<br>
+                                    4. Backup all .dat files (e.g PlayerData.dat)<br>
+                                    5. Reinstall Beat Saber<br>
+                                    6. Copy all .dat files you backed up back to the Quest<br>
+
+								</p>
+							</div>
+                            <button class="faq-accordion">I am still not able to uninstall or reinstall Beat Saber on Quest.</button>
+							<div class="faq-answer">
+								<p>
+									The steps described above aren't working when you use any mods for Beat Saber. Unfortunately, we are not able to help you with this issue.
+								</p>
+							</div>
+							<button class="faq-accordion">I am experiencing problems with frame drops while playing Beat Saber on my Quest.</button>
+							<div class="faq-answer">
+								<p>
+									Unfortunately, this is not an issue on our side. Frame drops issue could be also caused by low battery or using mods. If you are using any mods, this can significantly influence performance on your Quest.
+								</p>
+							</div>
+							<button class="faq-accordion">My controllers don't track properly on Quest, how can I fix it?</button>
+							<div class="faq-answer">
+								<p>
+									Change batteries in your controllers.
+								</p>
+							</div>
+                            <button class="faq-accordion">I can’t see any game update on my Quest.</button>
+							<div class="faq-answer">
+								<p>
+									Check if you have the latest version of Beat Saber in your mobile phone Oculus App. Go to the app, find Beat Saber in the store, scroll down and change your game version to LIVE: 1.xx.xx (number of the latest update).
+								</p>
+							</div>
+                            <button class="faq-accordion">Why can't I stream to Facebook with my Quest?</button>
+							<div class="faq-answer">
+								<p>
+									This feature is permanently turned off because of the copyright reasons. Beat Saber doesn't own streaming rights for some of the tracks in the game.
+								</p>
+							</div>
+                            <button class="faq-accordion">Why is my game lagging when I connect Bluetooth headphones to Quest?</button>
+							<div class="faq-answer">
+								<p>
+									Oculus Quest doesn't officially support Bluetooth headphones, thus using them can cause some lag.
+								</p>
+							</div>
+                            <button class="faq-accordion">Can I play Multiplayer on two headsets using a single account?</button>
+							<div class="faq-answer">
+								<p>
+									No, this is not possible.
+								</p>
+							</div>
+                            <button class="faq-accordion">Is the App Sharing feature available for Beat Saber?</button>
+							<div class="faq-answer">
+								<p>
+									Yes, the App Sharing feature is available for all songs in the Original Soundtracks, Extras, and Camellia Pack. It isn’t available for paid Music Packs at the moment.
+								</p>
+							</div>
+                            <button class="faq-accordion">My game is crashing instantly back to the Home screen after start. What should I do?</button>
+							<div class="faq-answer">
+								<p>
+									Your Oculus Quest software might not be up to date. You can force the update in Quest Settings -> About -> Update now.
+								</p>
+							</div>
+                            
+                            <br><h1>PLAYSTATION VR</h1>
+                            
+                            <button class="faq-accordion">I am playing on PS VR and my floor setup doesn’t seem right, I am missing cubes when playing.</button>
+							<div class="faq-answer">
+								<p>
+									This is probably due to wrongly set up Floor Adjustment. Go to Game Settings and set where the floor is. After that, go to Player Settings and set up your correct height.<br>
+                                    <br>We plan to change this aspect in the game as it might be a bit confusing right now.<br>
+                                    <br><i>Note: If you have Floor Adjustment correctly set up, it doesn't matter if you stand too close or too far away from the point from which the cubes are coming. It doesn't have any impact on the game.</i>
+
+								</p>
+							</div>
+                            <button class="faq-accordion">Will PlayStation version have custom levels and the level editor?</button>
+							<div class="faq-answer">
+								<p>
+									PS VR is a closed platform and custom levels together with user-generated content are currently not possible there.<br>
+                                    We are not planning to add a level editor to the game on this platform.
+
+								</p>
+							</div>
+                            <button class="faq-accordion">I am from Asia and I can't buy any music packs on my PlayStation, why?</button>
+							<div class="faq-answer">
+								<p>
+									We are very sorry, but our music packs are not available in Asia right now. We are working on this and we will share any updates on our social media.
+								</p>
+                            </div>
+                            
+                            <br><h1>MULTIPLAYER</h1>
+                                                                                  
+                            <button class="faq-accordion">How many people can play together in Multiplayer?</button>
+							<div class="faq-answer">
+								<p>
+									Up to five people can join the match. You can play with 1-4 friends or random opponents.
+								</p>
+							</div>
+                            
+                            <button class="faq-accordion">Which songs can you play in Multiplayer?</button>
+							<div class="faq-answer">
+								<p>
+									Multiplayer supports all official songs in the base game and official Music Packs (DLCs). All upcoming Music Pack will be available in Multiplayer as well.
+								</p>
+							</div>
+                            
+                            <button class="faq-accordion">Is voice chat enabled in the game?</button>
+							<div class="faq-answer">
+								<p>
+									Currently, there is no built-in voice chat in the game, but every platform has integrated voice software.
+								</p>
+							</div>
+                            
+                            <button class="faq-accordion">Does PS VR Multiplayer contain the same functionalities as Multiplayer on other platforms?</button>
+							<div class="faq-answer">
+								<p>
+									Yes.
+								</p>
+							</div>
+                            
+                            <button class="faq-accordion">Can two players play on the same account with several headsets?</button>
+							<div class="faq-answer">
+								<p>
+									Only one player can play Multiplayer using an account at a given time.
+								</p>
+							</div>
+                            
+                            <button class="faq-accordion">Is it possible to play 90°/360° levels, One Saber, and No Arrows mode in Multiplayer?</button>
+							<div class="faq-answer">
+								<p>
+									90° levels aren’t available in Multiplayer, but you can find One Saber and No Arrow modes in Options.
+								</p>
+							</div>
+                            
+                            <button class="faq-accordion">Do I need Playstation Plus for Multiplayer access?</button>
+							<div class="faq-answer">
+								<p>
+									Yes, PlayStation Plus subscription is needed to be able to play Multiplayer on PS VR.
+								</p>
+							</div>
+                            
+                            <button class="faq-accordion">Is cross-play with other platforms available for PS VR too?</button>
+							<div class="faq-answer">
+								<p>
+									Cross-play for PS VR is currently not supported.
+								</p>
+							</div>
+                           
+					</div>
+				</div>     
+			</section>
+		</section>
+		
+	</main>
+
+	<footer class="footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-16 col-14 offset-1 offset-md-0">
+				<div class="footer__wrapper">
+					<nav class="nav">
+						
+					</nav>
+
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<script src="js/core.min.js"></script>	<script src="js/extra.min.js"></script>
+<script type="text/javascript" src="./js/clock.js"></script>
+<script type="text/javascript" src="./js/imageloader.js"></script>
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9fdfec54b57a4dcca5d4abdca4e97600"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+
+</html>

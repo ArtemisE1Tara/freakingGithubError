@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Streamer Tools Viewer Quest Overlay</title>
+        <meta property="og:site_name" content="ComputerElite">
+        <meta property="og:title" content="Streamer Tools Viewer Quest Overlay" />
+        <meta property="og:description" content="An overlay for Streamer Tools Viewer for Beat Saber on Quest. Recreation of Bandoots one" />
+        <meta property="og:url" content="https://computerelite.github.io/tools/Streamer_Tools_Quest_Overlay/Overlay3.html" />
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link href="../../css/standard.css" type="text/css" rel="stylesheet">
+        <link rel="icon" href="../../assets/CE_64px.png" type="image/x-icon">
+        <style>
+            html {
+                background-color: #00000000;
+                background-image: none;
+            }
+
+            .item {
+                background-color: #33333388;
+                border-radius: 5px;
+                padding: 3px;
+                margin-top: 5px;
+                width: min-content;
+                font-size: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="display: flex; margin-bottom: 10px; position: absolute; bottom: 10px; left: 10px; flex-direction: column-reverse;">
+            <div style="display: flex; position: absolute; bottom: 10px; left: 10px; flex: 1;">
+                <div style="flex: 1;">
+                    <img style="bottom: 0px; position: absolute; width: 150px; height: 150px; border-radius: 10px;" src="default.png" class="cover">
+                </div>
+                <div style="flex: 1; flex-shrink: 0; white-space: nowrap; margin-left: 160px;">
+                    <div style="font-size: 120%; font-weight: bold; display: inline;">BSR: <div style="display: inline;" class="key"></div></div>
+                    <div style="font-size: 120%; font-weight: bold;" class="mapper item">Mapper</div>
+                    <div style="font-size: 130%; font-weight: bold;" class="songAuthor item">Song Author</div>
+                    <div style="font-size: 190%; font-weight: bold;" class="songName item">Song name</div>
+                </div>
+            </div>
+            <div style="flex: 1; margin-bottom: 165px; white-space: nowrap; font-size: 16px; display: inline; margin-left: 10px; font-weight: bold;">
+                <div class="customText item" style="display: inline;"></div>
+                <div class="mpCodeContainer item" >Mp lobby: <div class="mpCode" style="display: inline;"></div></div>
+                <div class="preKeyContainer item">Pre-BSR: <div class="preKey" style="display: inline;"></div></div>
+                <div style="font-size: 5px; padding: 2px; border-radius: 2px;" class="williamGayContainer item">William Gay</div>
+                <div style="font-size: 5px; padding: 2px; border-radius: 2px; " class="pinkCuteContainer item">Pink Cute</div>
+            </div>
+        </div>
+        <div style="position: absolute; top: -5px; right: 0px; left: 0px; background: #33333388; margin: auto; width: min-content; padding: 5px; border-radius: 5px;">
+            <div style="display: flex; text-align: center; white-space: nowrap; font-weight: bold; font-size: 20px;">
+                <div style="flex: 1;" style="display: inline;">
+                    <div class="timePlayed" style="display: inline;"></div>/<div class="totalTime" style="display: inline;"></div>
+                </div>
+                <div style="flex: 1; margin-left: 20px;">
+                    <div class="score"></div>
+                </div>
+                <div style="flex: 1; margin-left: 20px;">
+                    <div class="percentage"></div>
+                </div>
+                <div style="flex: 1; margin-left: 20px;">
+                    <div class="combo"></div>
+                </div>
+                <div style="flex: 1; margin-left: 20px;">
+                    <div style="font-size: 5px; position: absolute; bottom: 0px; right: 50px; padding: 2px; border-radius: 2px; " class="eraCuteContainer">Era Cute</div>
+                </div>
+            </div>
+        </div>
+        <div class="energybarContainer" style="width: 30%; height: 2%; position: absolute; background-color: #33333388; border-radius: 3px; margin: auto; top: 0px; left: 100px; padding: 1px;">
+            <div class="energybar" style="height: 100%; width: 100%; background: #EEEEEE; border-radius: 2px;">
+            </div>
+        </div>
+        <script src="pulling.js"></script>
+        <script>
+            function updateTime(total, played) {
+                UpdateAllFieldsOfName("timePlayed", played)
+                UpdateAllFieldsOfName("totalTime", total)
+            }
+
+            function UpdateEnergy(energy) {
+                Array.prototype.forEach.call(document.getElementsByClassName("energybar"), energybar => {
+                    energybar.style.width = `${energy * 100}%`
+                })
+            }
+        </script>
+        
+    </body>
+</html>
